@@ -13,7 +13,9 @@
     }
   ],
   "env": {
-    "PYTHONPATH": "."
+    "PYTHONPATH": ".",
+    "MONGODB_DB_NAME": "bug_triage_agent",
+    "MONGODB_URI": "mongodb+srv://ahmad-behzad:U0Qg9jz54MfG04sO@cluster0.vxsja.mongodb.net/solemate_db?retryWrites=true&w=majority"
   }
 }
 
