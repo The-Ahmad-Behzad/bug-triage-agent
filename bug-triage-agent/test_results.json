@@ -1,0 +1,40 @@
+{
+  "test_date": "2025-11-23T17:01:07.148570",
+  "phases_tested": [
+    {
+      "phase": "Phase 2: Schemas",
+      "status": "PASSED"
+    },
+    {
+      "phase": "Phase 4: Classification",
+      "status": "PASSED"
+    },
+    {
+      "phase": "Phase 5: Priority",
+      "status": "FAILED"
+    },
+    {
+      "phase": "Phase 6: Assignment",
+      "status": "FAILED"
+    },
+    {
+      "phase": "Phase 7: Fix Suggestion",
+      "status": "PASSED"
+    },
+    {
+      "phase": "Phase 8: Orchestration",
+      "status": "FAILED"
+    },
+    {
+      "phase": "Robust Handling",
+      "status": "FAILED"
+    },
+    {
+      "phase": "Error Handling",
+      "status": "FAILED"
+    }
+  ],
+  "total_tests": 8,
+  "passed": 3,
+  "failed": 5
+}

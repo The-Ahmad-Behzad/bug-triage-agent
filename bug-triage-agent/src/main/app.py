@@ -16,15 +16,27 @@ from src.utils.metrics import metrics_collector
 # Setup logging
 logger = setup_logging()
 
-# Run startup tasks
-startup_tasks()
-
 # Create FastAPI app
 app = FastAPI(
     title="Bug Triage AI Agent",
     description="AI-driven module that automatically classifies, prioritizes, and assigns software bugs",
     version="1.0.0"
 )
+
+# Startup tasks flag - run lazily on first request for serverless compatibility
+_startup_complete = False
+
+def ensure_startup():
+    """Ensure startup tasks have run (lazy initialization for serverless)"""
+    global _startup_complete
+    if not _startup_complete:
+        try:
+            startup_tasks()
+            _startup_complete = True
+        except Exception as e:
+            logger.warning(f"Startup tasks failed (non-critical): {e}")
+            # Continue anyway - database might be available later
+            _startup_complete = True  # Mark as complete to avoid retrying on every request
 
 # CORS middleware
 app.add_middleware(
@@ -52,6 +64,9 @@ async def health_check() -> HealthResponse:
     
     Returns the current status of the agent
     """
+    # Ensure startup tasks have run
+    ensure_startup()
+    
     try:
         # Check database connectivity
         db_status = "connected"
@@ -99,6 +114,9 @@ async def execute(request: dict):
     
     Accepts handshake format input and returns triage results
     """
+    # Ensure startup tasks have run
+    ensure_startup()
+    
     from src.handlers.triage_handler import process_triage_request
     return process_triage_request(request)
 
